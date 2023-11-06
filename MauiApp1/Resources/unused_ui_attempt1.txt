@@ -1,0 +1,97 @@
+    <Grid RowDefinitions=".25*,.4*,.2*,.05*"  
+          Padding="10" RowSpacing="5" Margin="10,5,10,10">
+        
+        <StackLayout Grid.Row="0"
+            Orientation="Vertical" Spacing="10">
+            <HorizontalStackLayout Spacing="10">
+                <Image Source="menu.png"
+                       WidthRequest="25"
+                       />
+                <Label Text="Categories"
+                       VerticalOptions="Center" 
+                       HorizontalOptions="StartAndExpand"
+                       FontSize="16" FontAttributes="Bold"/>
+                <Button Text="Add Category"
+                        HorizontalOptions="End"/>
+            </HorizontalStackLayout>
+            <Frame>
+                <ScrollView>
+                    
+                </ScrollView>
+            </Frame>
+        </StackLayout>
+        
+        <StackLayout Grid.Row="1"
+            Orientation="Vertical" Spacing="10" Margin="0,20,0,0">
+            <HorizontalStackLayout Spacing="10">
+                <Image Source="list.png"
+                       WidthRequest="25"
+                       />
+                <Label Text="All tasks"
+       HorizontalOptions="Start" VerticalOptions="Center"
+       FontSize="16" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+            <Frame>
+                <ScrollView>
+                    
+                </ScrollView>
+            </Frame>
+        </StackLayout>
+        
+        <StackLayout Grid.Row="2"
+            Orientation="Vertical"
+                      Spacing="10" Margin="0,20,0,20">
+            <HorizontalStackLayout Spacing="10">
+                <Image Source="accept.png"
+                       WidthRequest="25"
+                       />
+                <Label Text="Finished"
+       HorizontalOptions="Start" VerticalOptions="Center"
+       FontSize="16" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+            <Frame>
+                <ScrollView>
+                    
+                </ScrollView>
+            </Frame>
+        </StackLayout>
+        
+        <StackLayout Grid.Row="3" VerticalOptions="End">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                <ImageButton Grid.Column="0" Source="menu.png"
+                         HeightRequest="35" WidthRequest="35"
+                         HorizontalOptions="Start"/>
+                <Entry Placeholder="Enter task" 
+                   Grid.Column="1" 
+                   HorizontalOptions="FillAndExpand"/>
+                <Button Text="+" 
+                    Grid.Column="2"
+                    FontSize="20" FontAttributes="Bold"
+                    CornerRadius="50"
+                    HorizontalOptions="End"/>
+            </Grid>
+        </StackLayout>
+    </Grid>
+
+
+
+
+
+
+
+
+
+
+    <VerticalStackLayout>
+        <Frame>
+            <StackLayout>
+                <Label Text="Category 1" 
+                       FontSize="18" FontAttributes="Bold"/>
+                <HorizontalStackLayout>
+                    <CheckBox/>
+                    <Label Text="Task categpry 1"
+           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </StackLayout>
+        </Frame>
+    </VerticalStackLayout>

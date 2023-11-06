@@ -1,14 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-    <!--x:DataType will automatically the content page with the viewmodel-->
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.MainPage"
-             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"             
-             x:DataType="viewmodel:MainViewModel">
-
     <!--Making My Task App. 3 rows, 2 colums.
     RowDefinitions= density pixels1, density pixels 2, ....-->
-    <Grid RowDefinitions="100, Auto, *" ColumnDefinitions=".75*, .25*" 
+    <!--<Grid RowDefinitions="100, Auto, *" ColumnDefinitions=".75*, .25*" 
           Padding="10"
           RowSpacing="10"
           ColumnSpacing="10">
@@ -25,7 +17,7 @@
         <CollectionView Grid.Row="2" Grid.ColumnSpan="2" 
                         ItemsSource="{Binding Items}"
                         SelectionMode="None">
-            <!--ItemTemplate is to give the items a designed template-->
+            --><!--ItemTemplate is to give the items a designed template--><!--
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type x:String}">
                     <SwipeView>
@@ -43,7 +35,7 @@
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
  CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
-                                <!--Binding dot means binding to myself-->
+                                --><!--Binding dot means binding to myself--><!--
                                 <Label Text="{Binding .}" FontSize="18"/>
                             </Frame>
                         </Grid>
@@ -53,6 +45,18 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-    </Grid>
-    
-</ContentPage>
+    </Grid>-->
+
+
+
+
+    <!--<VerticalStackLayout>
+        <Label 
+            Text="{Binding Text}"
+            FontSize="24" Padding="20"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button Text="Go back"
+                Command="{Binding GoBackCommand}"
+                Margin="50"/>
+    </VerticalStackLayout>-->

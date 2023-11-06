@@ -1,0 +1,110 @@
+   <ScrollView>
+       <Grid RowDefinitions=".25*,.4*,.2*,.05*"  
+             Padding="10" RowSpacing="5" Margin="10,5,10,10">
+
+           <StackLayout Grid.Row="0"
+               Orientation="Vertical" Spacing="10">
+               <StackLayout Spacing="10" Orientation="Horizontal">
+                   <Image Source="menu.png"
+                          WidthRequest="25"
+                          />
+                   <Label Text="Categories"
+                          VerticalOptions="Center" 
+                          HorizontalOptions="StartAndExpand"
+                          FontSize="16" FontAttributes="Bold"/>
+                   <Button Text="Add Category"
+                           HorizontalOptions="End"/>
+               </StackLayout>
+               <Frame HeightRequest="150">
+                   <ScrollView>
+                       <!--Change this to CollectionView with 2 columns later-->
+                       <StackLayout Orientation="Vertical" Spacing="5">
+                           <Frame HasShadow="True">
+                               <StackLayout>
+                                   <Label Text="Category 3 aaaaaaaaaaaaaaaaaaaaaaaaaa well, you know it do be like that sometimes" FontSize="12" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                   <Label Text="(1/1)" FontSize="12" FontAttributes="Bold" HorizontalOptions="End"/>
+                               </StackLayout>
+                           </Frame>
+                       </StackLayout>
+                   </ScrollView>
+               </Frame>
+           </StackLayout>
+
+           <StackLayout Grid.Row="1"
+               Orientation="Vertical" Spacing="10" Margin="0,20,0,0">
+               <HorizontalStackLayout Spacing="10">
+                   <Image Source="list.png"
+                          WidthRequest="25"
+                          />
+                   <Label Text="All tasks"
+          HorizontalOptions="Start" VerticalOptions="Center"
+          FontSize="16" FontAttributes="Bold"/>
+               </HorizontalStackLayout>
+               <Frame>
+                   <FlexLayout>
+                       <CheckBox VerticalOptions="Center" Margin="0,0,5,0"/>
+                       <Label Text="Task1 adjhjslkfjsdklfjsfkdlh dfjsidfjerifejbfeif snfwehfifhroei" VerticalOptions="Center"/>
+                   </FlexLayout>
+               </Frame>
+           </StackLayout>
+
+           <StackLayout Grid.Row="2"
+               Orientation="Vertical"
+                         Spacing="10" Margin="0,20,0,20">
+               <HorizontalStackLayout Spacing="10">
+                   <Image Source="accept.png"
+                          WidthRequest="25"/>
+                   <Label Text="Completed"
+          HorizontalOptions="Start" VerticalOptions="Center"
+          FontSize="16" FontAttributes="Bold"/>
+               </HorizontalStackLayout>
+               <Frame>
+                   <ScrollView>
+                       <HorizontalStackLayout>
+                           <CheckBox IsChecked="True"/>
+                           <Label Text="Task1"
+                              VerticalOptions="Center" TextDecorations="Strikethrough"/>
+                       </HorizontalStackLayout>
+                   </ScrollView>
+               </Frame>
+           </StackLayout>
+
+           <AbsoluteLayout Grid.Row="3" VerticalOptions="End">
+               <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10"
+                     AbsoluteLayout.LayoutBounds="0,-21,400,100">
+                   <ImageButton Grid.Column="0" Source="menu.png"
+                            HeightRequest="35" WidthRequest="35"
+                            HorizontalOptions="Start"/>
+                   <Entry Placeholder="Enter task" 
+                      Grid.Column="1" 
+                      HorizontalOptions="FillAndExpand"/>
+                   <Button Text="+" 
+                       Grid.Column="2"
+                       FontSize="20" FontAttributes="Bold"
+                       CornerRadius="50"
+                       HorizontalOptions="End"/>
+               </Grid>
+           </AbsoluteLayout>
+       </Grid>
+
+
+   </ScrollView>
+
+
+
+
+
+<Frame>
+    <StackLayout>
+        <FlexLayout Margin="0,0,0,0">
+            <CheckBox VerticalOptions="Center" Margin="0,0,0,0" IsChecked="{Binding isCompleted}"/>
+            <Label Text="{Binding CurrentTask}" VerticalOptions="Center"/>
+        </FlexLayout>
+    </StackLayout>
+</Frame>
+<Frame>
+    <FlexLayout Margin="0,0,0,0">
+        <CheckBox VerticalOptions="Center" Margin="0,0,0,0" IsChecked="{Binding isCompleted}"/>
+        <Label Text="{Binding CompletedTask}" VerticalOptions="Center"/>
+    </FlexLayout>
+</Frame>

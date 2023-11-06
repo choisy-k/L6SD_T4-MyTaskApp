@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    <!--x:DataType will automatically connect the content page with the viewmodel-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage"
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"       
+             x:DataType="viewmodel:MainViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:MauiApp1.Converter"
+             Title="Tasker">
+    
+    <ContentPage.Resources>
+        <converters:ColorConverter x:Key="ColorConverter"/>
+        <ResourceDictionary>
+            <Style x:Key="ImageSize" TargetType="Image">
+                <Setter Property="WidthRequest" Value="25"/>
+            </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+
+    <Grid RowDefinitions="*,80" Margin="10,5,10,0">
+        <!--Majority of the screen-->
+        <ScrollView>
+            <StackLayout Grid.Row="0">
+                <Grid RowDefinitions="Auto,Auto,Auto"
+                  Padding="10" RowSpacing="5">
+
+                    <!--Category section-->
+                    <StackLayout Grid.Row="0"
+                             Orientation="Vertical" Spacing="10">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Image Source="menu.png" Style="{StaticResource ImageSize}"/>
+                            <Label Text="Categories" FontSize="18"
+                               HorizontalOptions="StartAndExpand"
+                               Style="{StaticResource LabelStyle}"/>
+                        </StackLayout>
+                        <Frame MaximumHeightRequest="250">
+                            <ScrollView>
+                                <StackLayout Orientation="Vertical">
+                                    <!--CollectionView of categories-->
+                                    <CollectionView ItemsSource="{Binding Categories}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <SwipeView>
+                                                    <SwipeView.LeftItems>
+                                                        <SwipeItems>
+                                                            <SwipeItem Text="Edit" BackgroundColor="#5a9079"
+                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=EditCategoryCommand}"
+                   CommandParameter="{Binding .}"/>
+                                                        </SwipeItems>
+                                                    </SwipeView.LeftItems>
+                                                    <SwipeView.RightItems>
+                                                        <SwipeItems>
+                                                            <SwipeItem Text="Delete"
+                   BackgroundColor="Red"
+                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCategoryCommand}"
+                   CommandParameter="{Binding .}"/>
+                                                        </SwipeItems>
+                                                    </SwipeView.RightItems>
+                                                    <Frame HasShadow="True" Margin="0,0,0,5">
+                                                        <Grid RowDefinitions="*,Auto" ColumnDefinitions="250,*">
+                                                        <Label Text="{Binding CategoryName}" 
+                                                               Grid.Row="0" Grid.Column="0" 
+                                                           FontSize="13" MaximumWidthRequest="230" Padding="10,0,0,0" HorizontalOptions="StartAndExpand"
+                                                           Style="{StaticResource LabelStyle}"/>
+                                                        <Label FontSize="13" Grid.Row="0" Grid.Column="1"
+                                                           Style="{StaticResource LabelStyle}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding CompletedTask}"/>
+                                                                    <Span Text="/"/>
+                                                                    <Span Text="{Binding TotalTasks}"/>
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                        <ProgressBar Grid.Row="1" Grid.ColumnSpan="2"
+                                                                     ProgressColor="{Binding CategoryColor, Converter={StaticResource ColorConverter}}"
+                                                                     Progress="{Binding Percentage}"/>
+                                                    </Grid>
+                                                </Frame>
+                                            </SwipeView>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </ScrollView>
+                        </Frame>
+                    </StackLayout>
+
+                    <!--Pending tasks section-->
+                    <StackLayout Grid.Row="1" Orientation="Vertical"
+                             Spacing="10" Margin="0,20,0,20">
+                        <HorizontalStackLayout Spacing="10">
+                            <Image Source="list.png" Style="{StaticResource ImageSize}"/>
+                            <Label Text="To Do" FontSize="18"
+                               HorizontalOptions="StartAndExpand"
+                               Style="{StaticResource LabelStyle}"/>
+                        </HorizontalStackLayout>
+                        <Frame MaximumHeightRequest="300">
+                            <ScrollView>
+                                <StackLayout>
+                                    <!--CollectionView of the tasks-->
+                                    <CollectionView ItemsSource="{Binding Tasks}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <!--using SwipeView to delete and edit tasks-->
+                                                <SwipeView>
+                                                    <SwipeView.LeftItems>
+                                                        <SwipeItems>
+                                                            <SwipeItem Text="Edit" BackgroundColor="#5a9079"
+                                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=EditTaskCommand}"
+                                                                       CommandParameter="{Binding .}"/>
+                                                        </SwipeItems>
+                                                    </SwipeView.LeftItems>
+                                                    <SwipeView.RightItems>
+                                                        <SwipeItems>
+                                                            <SwipeItem Text="Delete"
+                                                                       BackgroundColor="Red"
+                                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteTaskCommand}"
+                                                                       CommandParameter="{Binding .}"/>
+                                                        </SwipeItems>
+                                                    </SwipeView.RightItems>
+                                                    <Grid ColumnDefinitions="25,*" ColumnSpacing="5">
+                                                        <CheckBox x:Name="checkBox" CheckedChanged="checkBox_CheckedChanged"
+                                                                  Grid.Column="0" VerticalOptions="Center" Margin="0,0,5,0"
+                                                                  IsChecked="{Binding IsCompleted}"
+                                                                  Color="{Binding TaskColor, Converter={StaticResource ColorConverter}}"/>
+                                                        <Label Text="{Binding TaskName}" 
+                                                               Grid.Column="1" VerticalOptions="Center">
+                                                            <Label.Triggers>
+                                                                <DataTrigger Binding="{Binding Source={x:Reference checkBox}, Path=IsChecked}"
+                                                                             TargetType="Label" Value="True">
+                                                                    <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                                </DataTrigger>
+                                                            </Label.Triggers>
+                                                        </Label>
+                                                    </Grid>
+                                                </SwipeView>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </ScrollView>
+                        </Frame>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+
+
+        <!--Go to task creation page-->
+        <StackLayout Grid.Row="1"
+                 BackgroundColor="White"
+                 VerticalOptions="EndAndExpand"
+                 Padding="0,0,0,10">
+            <Button Text="Create New Task" Grid.Column="2"
+                    FontSize="16" FontAttributes="Bold" 
+                    HorizontalOptions="Center" VerticalOptions="Center"
+                    Padding="25,15,25,15" 
+                    x:Name="addBtn"
+                    Clicked="addBtn_Clicked"/>
+        </StackLayout>
+    </Grid>
+    
+</ContentPage>

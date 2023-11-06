@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.DetailPage"
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
+             x:DataType="viewmodel:CreateTaskViewModel"
+             xmlns:converters="clr-namespace:MauiApp1.Converter"
+             Title="New Task">
+
+    <ContentPage.Resources>
+        <converters:ColorConverter x:Key="ColorConverter"/>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="100, *, Auto" RowSpacing="10" Padding="20">
+        <!--Task entry section-->
+        <StackLayout Grid.Row="0">
+            <HorizontalStackLayout>
+                <Image Source="pencil.png" WidthRequest="25" HorizontalOptions="Start"/>
+                <Label Text="New task" FontSize="16" FontAttributes="Bold"
+                       HorizontalOptions="Start" Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <Entry Placeholder="Enter your task" HorizontalOptions="FillAndExpand" Margin="0,10,0,0"
+                   Text="{Binding Task}"/>
+        </StackLayout>
+        
+        <!--Category assignment section-->
+        <StackLayout Grid.Row="1">
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,0,0,15">
+                <Image Source="menu.png" WidthRequest="30"/>
+                <Label Text="Assign a category"
+                       FontSize="16" FontAttributes="Bold"
+                       HorizontalOptions="StartAndExpand"
+                       VerticalOptions="Center"/>
+                <Button Text="New Category"
+                        HorizontalOptions="End"
+                        Command="{Binding AddCategoryCommand}"/>
+            </StackLayout>
+            <ScrollView MaximumHeightRequest="470">
+                <CollectionView ItemsSource="{Binding Categories}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout HorizontalItemSpacing="5" Orientation="Vertical" Span="2" VerticalItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame>
+                                <Grid ColumnDefinitions="*,10">
+                                    <RadioButton Content="{Binding CategoryName}"
+                                                 GroupName="Category" Grid.Column="0"
+                                                 IsChecked="{Binding IsSelected}"/>
+                                    <RoundRectangle VerticalOptions="FillAndExpand" Grid.Column="1" BackgroundColor="{Binding CategoryColor, Converter={StaticResource ColorConverter}}"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </StackLayout>
+        
+        <!--Add task section-->
+        <StackLayout Grid.Row="2">
+            <Button Text="Add Task" 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    Padding="20"
+                    Command="{Binding AddTaskCommand}"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

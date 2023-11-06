@@ -4,9 +4,11 @@ namespace MauiApp1;
 
 public partial class DetailPage : ContentPage
 {
-	public DetailPage(DetailViewModel vm)
+	public DetailPage()
 	{
 		InitializeComponent();
+        
+        var vm = new CreateTaskViewModel();
 		BindingContext = vm;
-	}
+    }
 }
