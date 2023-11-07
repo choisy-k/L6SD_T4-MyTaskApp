@@ -104,14 +104,27 @@ namespace MauiApp1.ViewModel
         [RelayCommand]
         async void DeleteCategory(Category category)
         {
+
+            //int indexToDelete = 2; // Change this to the index you want to delete
+
+            //if (indexToDelete >= 0 && indexToDelete < myCollection.Count)
+            //{
+            //    myCollection.RemoveAt(indexToDelete);
+            //    myCollectionView.ItemsSource = myCollection; // Refresh the CollectionView
+            //}
+
             // Still need to be changed
             if (Categories.Contains(category))
             {
-                bool answer = await App.Current.MainPage.DisplayAlert("Warning!", "Deleting a category will delete all tasks within it. Do you still wish to proceed?", "Yes","No");
+                bool answer = await App.Current.MainPage.DisplayAlert("Warning!", $"All tasks under '{category.CategoryName}' will also get deleted. Do you wish to proceed?", "Yes","No");
                 if (answer == true)
                 {
+                    int catId = category.Id;
+
+                    //if (catId < Co)
+                    var taskRemoved = category.Tasks.Where(t => t.CategoryId == category.Id).ToList();
                     //delete all related tasks before the category itself
-                    foreach(var t in category.Tasks.ToList())
+                    foreach(var t in taskRemoved)
                     {
                         category.Tasks.Remove(t);
                     }
@@ -143,6 +156,72 @@ namespace MauiApp1.ViewModel
             }
         }
 
+        //void DummyData()
+        //{
+        //    Categories = new ObservableCollection<Category>()
+        //    {
+        //        new Category
+        //        {
+        //            Id = 0,
+        //            CategoryName = "Green Category",
+        //            CategoryColor = "#00A36C"
+        //        },
+        //        new Category
+        //        {
+        //            Id = 1,
+        //            CategoryName = "Violet Category",
+        //            CategoryColor = "#8F00FF"
+        //        },
+        //        new Category
+        //        {
+        //            Id = 2,
+        //            CategoryName = "Brown Category",
+        //            CategoryColor = "#72674e"
+        //        },
+        //    };
+
+        //    Tasks = new ObservableCollection<TheTasks>()
+        //    {
+        //        new TheTasks
+        //        {
+        //            TaskName = "Light green",
+        //            IsCompleted = false,
+        //            CategoryId = 0,
+        //        },
+        //        new TheTasks
+        //        {
+        //            TaskName = "Teal",
+        //            IsCompleted = false,
+        //            CategoryId = 0,
+        //        },
+        //        new TheTasks
+        //        {
+        //            TaskName = "Deep violet",
+        //            IsCompleted = false,
+        //            CategoryId = 1,
+        //        },
+        //        new TheTasks
+        //        {
+        //            TaskName = "Forest",
+        //            IsCompleted = false,
+        //            CategoryId = 0,
+        //        },
+        //        new TheTasks
+        //        {
+        //            TaskName = "Earthy",
+        //            IsCompleted = false,
+        //            CategoryId = 2,
+        //        },
+        //        new TheTasks
+        //        {
+        //            TaskName = "Purple?",
+        //            IsCompleted = false,
+        //            CategoryId = 1,
+        //        },
+        //    };
+        //    UpdateData();
+        //}
+
         void DummyData()
         {
             Categories = new ObservableCollection<Category>()
@@ -150,19 +229,19 @@ namespace MauiApp1.ViewModel
                 new Category
                 {
                     Id = 0,
-                    CategoryName = "Green Category",
+                    CategoryName = "Baked goods",
                     CategoryColor = "#00A36C"
                 },
                 new Category
                 {
                     Id = 1,
-                    CategoryName = "Violet Category",
+                    CategoryName = "Daily tasks",
                     CategoryColor = "#8F00FF"
                 },
                 new Category
                 {
                     Id = 2,
-                    CategoryName = "Brown Category",
+                    CategoryName = "Paperwork",
                     CategoryColor = "#72674e"
                 },
             };
@@ -171,37 +250,37 @@ namespace MauiApp1.ViewModel
             {
                 new TheTasks
                 {
-                    TaskName = "Light green",
+                    TaskName = "25 fairy bread",
                     IsCompleted = false,
                     CategoryId = 0,
                 },
                 new TheTasks
                 {
-                    TaskName = "Teal",
+                    TaskName = "10 sourdough",
                     IsCompleted = false,
                     CategoryId = 0,
                 },
                 new TheTasks
                 {
-                    TaskName = "Deep violet",
+                    TaskName = "Clean table in the south section",
                     IsCompleted = false,
                     CategoryId = 1,
                 },
                 new TheTasks
                 {
-                    TaskName = "Forest",
+                    TaskName = "15 brioche",
                     IsCompleted = false,
                     CategoryId = 0,
                 },
                 new TheTasks
                 {
-                    TaskName = "Earthy",
+                    TaskName = "Talk to Sarah about the monthly report",
                     IsCompleted = false,
                     CategoryId = 2,
                 },
                 new TheTasks
                 {
-                    TaskName = "Purple?",
+                    TaskName = "Rearrange the interior decoration",
                     IsCompleted = false,
                     CategoryId = 1,
                 },

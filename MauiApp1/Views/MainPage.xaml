@@ -7,7 +7,7 @@
              x:DataType="viewmodel:MainViewModel"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:MauiApp1.Converter"
-             Title="Tasker">
+             Title="Sarah's Bakery">
     
     <ContentPage.Resources>
         <converters:ColorConverter x:Key="ColorConverter"/>
@@ -98,7 +98,7 @@
                              Spacing="10" Margin="0,20,0,20">
                         <HorizontalStackLayout Spacing="10">
                             <Image Source="list.png" Style="{StaticResource ImageSize}"/>
-                            <Label Text="To Do" FontSize="18"
+                            <Label Text="Tasks" FontSize="18"
                                HorizontalOptions="StartAndExpand"
                                Style="{StaticResource LabelStyle}"/>
                         </HorizontalStackLayout>
