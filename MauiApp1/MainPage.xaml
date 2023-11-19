@@ -3,8 +3,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.MainPage"
-             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"             
-             x:DataType="viewmodel:MainViewModel">
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
+             xmlns:models="clr-namespace:MauiApp1.Model"
+             x:DataType="viewmodel:MainViewModel"
+             Title="My Task">
 
     <!--Making My Task App. 3 rows, 2 colums.
     RowDefinitions= density pixels1, density pixels 2, ....-->
@@ -16,41 +18,60 @@
         <Image Grid.ColumnSpan="2" Source="kiwi_icon.png"/>
 
         <Entry Placeholder="Enter your task" 
-               Text="{Binding Text}"
+               Text="{Binding Text.Name}"
                Grid.Row="1" PlaceholderColor="Black"/>
 
-        <Button Text="Add" Command="{Binding AddCommand}"
-                Grid.Row="1" Grid.Column="1"/>
+        <Button Text="Add" Command="{Binding SaveItemCommand}"
+                Grid.Row="1" Grid.Column="1">
+            <!--<Button.Triggers>
+                <DataTrigger TargetType="Button" 
+                 Binding="{Binding Text.Id}"
+                 Value="0">
+                    <Setter Property="Text" Value="Add Note"/>
+                </DataTrigger>
+            </Button.Triggers>-->
+        </Button>
 
         <CollectionView Grid.Row="2" Grid.ColumnSpan="2" 
                         ItemsSource="{Binding Items}"
                         SelectionMode="None">
             <!--ItemTemplate is to give the items a designed template-->
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type x:String}">
+                <DataTemplate x:DataType="models:NoteItem">
                     <SwipeView>
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem Text="Delete?" 
                                            BackgroundColor="Red"
-                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
-                                           CommandParameter="{Binding .}"/>
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteItemCommand}"
+                                           CommandParameter="{Binding Id}"/>
                             </SwipeItems>
                         </SwipeView.RightItems>
                         <Grid Padding="0,5">
                             <Frame>
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
- CommandParameter="{Binding .}"/>
+ CommandParameter="{Binding Id}"/>
                                 </Frame.GestureRecognizers>
                                 <!--Binding dot means binding to myself-->
-                                <Label Text="{Binding .}" FontSize="18"/>
+                                <Label Text="{Binding Name}" FontSize="18"/>
                             </Frame>
                         </Grid>
                     </SwipeView>
                     
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <!--Default view when there's no item-->
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="200">
+                        <Label Text="No notes found"
+                               FontSize="18"
+                               TextColor="Grey"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </ContentView>
+            </CollectionView.EmptyView>
         </CollectionView>
 
     </Grid>

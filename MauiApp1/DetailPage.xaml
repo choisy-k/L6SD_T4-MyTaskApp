@@ -6,8 +6,9 @@
              x:DataType="viewmodel:DetailViewModel"
              Title="DetailPage">
     <VerticalStackLayout>
+        <Label Text="{Binding Text.Id}"/>
         <Label 
-            Text="{Binding Text}"
+            Text="{Binding Text.Name}"
             FontSize="24" Padding="20"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />

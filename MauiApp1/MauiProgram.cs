@@ -1,4 +1,5 @@
-﻿using MauiApp1.ViewModel;
+﻿using MauiApp1.Database;
+using MauiApp1.ViewModel;
 using Microsoft.Extensions.Logging;
 
 namespace MauiApp1
@@ -26,6 +27,8 @@ namespace MauiApp1
 
             builder.Services.AddTransient<DetailPage>();
             builder.Services.AddTransient<DetailViewModel>();
+
+            builder.Services.AddSingleton<DBContext>();
 
 #if DEBUG
             builder.Logging.AddDebug();
